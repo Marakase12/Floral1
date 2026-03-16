@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Цифровые решения для цветочных магазинов</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --white: #faf8f4;
+    --rose: #c8756a;
+    --rose-light: #e8b5b0;
+    --green-dark: #1e2e24;
+    --green-mid: #2d4535;
+    --green-accent: #3d6b4f;
+    --gold: #c9a96e;
+    --gold-light: #e8d5b0;
+    --muted: #6b6b6b;
+    --card-bg: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--green-dark);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 169, 110, 0.15);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: -120px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 117, 106, 0.12);
+    pointer-events: none;
+  }
+
+  nav {
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .hero-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 0.3em;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rose-light);
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.5);
+    max-width: 420px;
+    margin: 2rem auto 3rem;
+    letter-spacing: 0.03em;
+    font-weight: 300;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .cta-btn:hover {
+    background: var(--gold);
+    color: var(--green-dark);
+  }
+
+  .hero-scroll {
+    padding: 2.5rem;
+    text-align: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* PAIN SECTION */
+  .pain-section {
+    background: var(--white);
+    padding: 7rem 2rem;
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ink);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--green-accent);
+  }
+
+  .section-desc {
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 4rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid #e8e2d8;
+  }
+
+  .pain-item {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid #e8e2d8;
+    text-align: left;
+  }
+
+  .pain-item:last-child { border-right: none; }
+
+  .pain-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: #e8e2d8;
+    line-height: 1;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .pain-text {
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* SOLUTIONS */
+  .solutions {
+    background: #f5f2ec;
+    padding: 7rem 2rem;
+  }
+
+  .solutions-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #ddd8ce;
+  }
+
+  .solution-card {
+    background: var(--card-bg);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .solution-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--rose);
+    transition: height 0.4s ease;
+  }
+
+  .solution-card:hover::before { height: 100%; }
+
+  .solution-card:hover { background: #fffaf8; }
+
+  .sol-index {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--rose);
+    letter-spacing: 0.1em;
+  }
+
+  .sol-icon {
+    width: 44px; height: 44px;
+    border: 1px solid #e8e2d8;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .sol-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .sol-desc {
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: var(--muted);
+    font-weight: 300;
+    flex: 1;
+  }
+
+  .sol-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .sol-features li {
+    font-size: 0.72rem;
+    color: var(--ink);
+    font-weight: 400;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    letter-spacing: 0.02em;
+  }
+
+  .sol-features li::before {
+    content: '—';
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+
+  .sol-price {
+    padding-top: 1.5rem;
+    border-top: 1px solid #e8e2d8;
+  }
+
+  .price-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .price-sub {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+    letter-spacing: 0.05em;
+    font-weight: 300;
+  }
+
+  /* HOW */
+  .how-section {
+    background: var(--green-dark);
+    padding: 7rem 2rem;
+    color: white;
+  }
+
+  .how-section .section-title { color: var(--white); }
+  .how-section .section-label { color: var(--gold); }
+  .how-section .section-desc { color: rgba(255,255,255,0.4); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .step {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+
+  .step:last-child { border-right: none; }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .step-desc {
+    font-size: 0.75rem;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* ECONOMICS */
+  .econ-section {
+    background: var(--white);
+    padding: 7rem 2rem;
+    text-align: center;
+  }
+
+  .econ-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #e8e2d8;
+  }
+
+  .econ-card {
+    background: var(--white);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .econ-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--green-accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .econ-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--green-dark);
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 169, 110, 0.08);
+    pointer-events: none;
+  }
+
+  .cta-section .section-title { color: var(--white); margin-bottom: 1rem; }
+  .cta-section .section-label { color: var(--gold); }
+
+  .cta-subtitle {
+    font-size: 0.82rem;
+    line-height: 2;
+    color: rgba(255,255,255,0.4);
+    max-width: 400px;
+    margin: 0 auto 3rem;
+    font-weight: 300;
+  }
+
+  .contact-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--rose-light); }
+
+  .contact-note {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #111;
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-note {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.8s ease 0.2s both; }
+  .hero-title { animation: fadeUp 0.8s ease 0.4s both; }
+  .hero-subtitle { animation: fadeUp 0.8s ease 0.6s both; }
+  .cta-btn { animation: fadeUp 0.8s ease 0.8s both; }
+
+  @media (max-width: 600px) {
+    nav { padding: 1.5rem; }
+    .pain-grid { grid-template-columns: 1fr 1fr; }
+    .pain-item { border-right: 1px solid #e8e2d8; }
+    .pain-item:nth-child(even) { border-right: none; }
+    .pain-item:nth-child(1), .pain-item:nth-child(2) { border-bottom: 1px solid #e8e2d8; }
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .step:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <nav>
+    <span class="logo">Флора&nbsp;·&nbsp;Digital</span>
+    <span class="nav-tag">Автоматизация для цветочного бизнеса</span>
+  </nav>
+  <div class="hero-body">
+    <span class="hero-eyebrow">Технологии для флористов</span>
+    <h1 class="hero-title">
+      Ваш магазин<br>
+      работает <em>пока</em><br>
+      вы спите
+    </h1>
+    <p class="hero-subtitle">
+      Четыре готовых решения, которые избавят вас от рутины,
+      увеличат повторные продажи и поднимут рейтинг
+      на Яндекс.Картах и 2ГИС.
+    </p>
+    <a href="#solutions" class="cta-btn">Смотреть решения</a>
+  </div>
+  <div class="hero-scroll">↓ &nbsp; листайте вниз</div>
+</section>
+
+<!-- PAIN -->
+<section class="pain-section">
+  <span class="section-label">Узнаёте себя?</span>
+  <h2 class="section-title">Четыре боли,<br>которые <em>стоят денег</em></h2>
+  <p class="section-desc">
+    Каждая из этих проблем — это потерянные клиенты и недозаработанные деньги. Ежедневно.
+  </p>
+  <div class="pain-grid">
+    <div class="pain-item">
+      <span class="pain-num">01</span>
+      <p class="pain-text">Заявки в ночь и выходные теряются — клиент не дождался и заказал у конкурента</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-num">02</span>
+      <p class="pain-text">Клиент купил букет один раз и пропал — нет системы возврата и повторных продаж</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-num">03</span>
+      <p class="pain-text">Отзывы висят без ответа — рейтинг падает, новые клиенты уходят к тем, кто отвечает</p>
+    </div>
+    <div class="pain-item">
+      <span class="pain-num">04</span>
+      <p class="pain-text">Администратор тратит час на консультации вместо того, чтобы собирать букеты</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="solutions" id="solutions">
+  <div class="solutions-header">
+    <span class="section-label">Что мы предлагаем</span>
+    <h2 class="section-title">Четыре <em>готовых</em> решения</h2>
+    <p class="section-desc">
+      Каждый продукт закрывает конкретную боль. Внедрение — от 3 до 7 дней.
+    </p>
+  </div>
+
+  <div class="solutions-grid">
+
+    <!-- Card 1 -->
+    <div class="solution-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="sol-index">01 / 04</span>
+        <div class="sol-icon">🤖</div>
+      </div>
+      <h3 class="sol-title">Бот для приёма заказов</h3>
+      <p class="sol-desc">
+        Клиент пишет в Telegram или WhatsApp в любое время суток — бот принимает заявку, уточняет детали и мгновенно уведомляет вас. Ни одна заявка не потеряется.
+      </p>
+      <ul class="sol-features">
+        <li>Приём заказов 24/7 без участия менеджера</li>
+        <li>Автоматическая запись в таблицу</li>
+        <li>Мгновенное уведомление администратора</li>
+        <li>Подтверждение клиенту с деталями заказа</li>
+      </ul>
+      <div class="sol-price">
+        <span class="price-main">25 000 — 45 000 ₽</span>
+        <span class="price-sub">разработка + 5 000 ₽/мес поддержка</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="solution-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="sol-index">02 / 04</span>
+        <div class="sol-icon">💌</div>
+      </div>
+      <h3 class="sol-title">Система напоминаний о праздниках</h3>
+      <p class="sol-desc">
+        После первого заказа бот спрашивает у клиента важные даты — день рождения партнёра, годовщина — и за 3 дня до события присылает напоминание с предложением заказать.
+      </p>
+      <ul class="sol-features">
+        <li>Сбор важных дат при первом контакте</li>
+        <li>Автоматические напоминания за 3 и 7 дней</li>
+        <li>Готовое предложение с ценой и кнопкой заказа</li>
+        <li>Работает на 8 марта, НГ, дни рождения</li>
+      </ul>
+      <div class="sol-price">
+        <span class="price-main">15 000 — 25 000 ₽</span>
+        <span class="price-sub">идёт в связке с ботом или отдельно</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="solution-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="sol-index">03 / 04</span>
+        <div class="sol-icon">🧠</div>
+      </div>
+      <h3 class="sol-title">ИИ-консультант по букетам</h3>
+      <p class="sol-desc">
+        Клиент описывает кому и на какой повод — ИИ подбирает три варианта букетов из вашего каталога с описанием и ценой. Конверсия растёт, менеджер освобождается.
+      </p>
+      <ul class="sol-features">
+        <li>Подбор по поводу, бюджету и получателю</li>
+        <li>Показывает варианты из вашего каталога</li>
+        <li>Принимает заказ прямо в диалоге</li>
+        <li>Работает без выходных и перерывов</li>
+      </ul>
+      <div class="sol-price">
+        <span class="price-main">40 000 — 80 000 ₽</span>
+        <span class="price-sub">разработка + 7 000 ₽/мес поддержка</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="solution-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="sol-index">04 / 04</span>
+        <div class="sol-icon">⭐</div>
+      </div>
+      <h3 class="sol-title">Авто-ответы на отзывы</h3>
+      <p class="sol-desc">
+        Система мониторит новые отзывы на Яндекс.Картах и 2ГИС, генерирует живой персонализированный ответ и присылает вам на одобрение одной кнопкой.
+      </p>
+      <ul class="sol-features">
+        <li>Мониторинг Яндекс.Карт и 2ГИС в реальном времени</li>
+        <li>ИИ пишет ответ в стиле вашего магазина</li>
+        <li>Вы одобряете одной кнопкой в Telegram</li>
+        <li>Рейтинг растёт — клиенты видят живой магазин</li>
+      </ul>
+      <div class="sol-price">
+        <span class="price-main">15 000 — 25 000 ₽</span>
+        <span class="price-sub">разработка + 3 000 — 5 000 ₽/мес</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div style="text-align:center; margin-bottom:5rem;">
+    <span class="section-label">Как это работает</span>
+    <h2 class="section-title">Три шага<br>до <em>результата</em></h2>
+    <p class="section-desc">Никаких долгих согласований. Просто и быстро.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <h3 class="step-title">Встреча и разбор</h3>
+      <p class="step-desc">Звонок на 30 минут. Разбираем ваши боли, выбираем одно или несколько решений. Без лишних слов — сразу к делу.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <h3 class="step-title">Разработка за 3–7 дней</h3>
+      <p class="step-desc">Настраиваем под ваш магазин, подключаем каталог и контакты. Показываем демо до финальной сдачи — вы всё видите и контролируете.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <h3 class="step-title">Запуск и поддержка</h3>
+      <p class="step-desc">Запускаем, обучаем сотрудников за 15 минут. Дальше — ежемесячная поддержка и доработки. Вы не остаётесь один на один с технологией.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ECONOMICS -->
+<section class="econ-section">
+  <span class="section-label">Экономика</span>
+  <h2 class="section-title">Что это даёт<br>вашему <em>магазину</em></h2>
+  <p class="section-desc" style="margin-bottom:4rem;">
+    Реальные цифры на основе первых внедрений в цветочных магазинах Москвы
+  </p>
+  <div class="econ-grid">
+    <div class="econ-card">
+      <span class="econ-num">+23%</span>
+      <span class="econ-label">конверсия из обращений в заказы</span>
+    </div>
+    <div class="econ-card">
+      <span class="econ-num">×2.4</span>
+      <span class="econ-label">повторные покупки от постоянных клиентов</span>
+    </div>
+    <div class="econ-card">
+      <span class="econ-num">−80%</span>
+      <span class="econ-label">времени администратора на рутинные консультации</span>
+    </div>
+    <div class="econ-card">
+      <span class="econ-num">+0.6★</span>
+      <span class="econ-label">к рейтингу на Яндекс.Картах за первые 2 месяца</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <span class="section-label">Начать</span>
+  <h2 class="section-title" style="max-width:500px; margin:0 auto 1rem;">
+    Готовы автоматизировать<br><em>ваш магазин?</em>
+  </h2>
+  <p class="cta-subtitle">
+    Напишите нам — проведём бесплатный разбор и покажем,
+    сколько заявок вы теряете прямо сейчас.
+  </p>
+  <div class="contact-block">
+    <a href="https://t.me/your_username" class="contact-link">@your_username в Telegram</a>
+    <span class="contact-note">Отвечаем в течение часа в рабочее время</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Флора · Digital</span>
+  <span class="footer-note">Автоматизация для цветочного бизнеса · Москва</span>
+</footer>
+
+</body>
+</html>
